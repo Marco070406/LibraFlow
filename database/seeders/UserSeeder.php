@@ -19,7 +19,7 @@ class UserSeeder extends Seeder
             'email' => 'admin@libraflow.local',
             'password' => Hash::make('password'),
             'role' => 'admin',
-            'phone' => '+221 77 000 0001',
+            'phone' => '+228 98124565',
             'email_verified_at' => now(),
         ]);
         $admin->assignRole('admin');
@@ -30,7 +30,7 @@ class UserSeeder extends Seeder
             'email' => 'biblio@libraflow.local',
             'password' => Hash::make('password'),
             'role' => 'bibliothecaire',
-            'phone' => '+221 77 000 0002',
+            'phone' => '+228 70904565',
             'email_verified_at' => now(),
         ]);
         $biblio->assignRole('bibliothecaire');
@@ -40,17 +40,17 @@ class UserSeeder extends Seeder
             [
                 'name' => 'Moussa Ndiaye',
                 'email' => 'moussa@libraflow.local',
-                'phone' => '+221 77 100 0001',
+                'phone' => '+221 93124357',
             ],
             [
                 'name' => 'Fatou Sow',
                 'email' => 'fatou@libraflow.local',
-                'phone' => '+221 77 100 0002',
+                'phone' => '+228 79894563',
             ],
             [
                 'name' => 'Ibrahima Fall',
                 'email' => 'ibrahima@libraflow.local',
-                'phone' => '+221 77 100 0003',
+                'phone' => '+228 97664534',
             ],
         ];
 
