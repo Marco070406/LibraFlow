@@ -112,6 +112,7 @@ Route::middleware(['auth', 'lecteur'])->prefix('lecteur')->name('lecteur.')->gro
 
     // Historique des emprunts personnels
     Route::get('/loans', [LecteurLoanController::class, 'index'])->name('loans.index');
+    Route::post('/loans/{book}', [LecteurLoanController::class, 'store'])->name('loans.store');
 
     // Réservations
     Route::get('/reservations',                        [LecteurReservationController::class, 'index'])  ->name('reservations.index');

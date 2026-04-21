@@ -109,51 +109,44 @@
                         </div>
 
                         {{-- ── Boutons d'action ── --}}
-                        <div class="flex flex-wrap gap-3">
-                            @if($canBorrow)
-                                {{-- Bouton "Emprunter" — vert, prominent --}}
-                                <div class="inline-flex items-center gap-2 px-6 py-3 rounded-xl
-                                            bg-emerald-600 text-white font-semibold shadow-sm
-                                            shadow-emerald-200">
+                        <div class="flex flex-col sm:flex-row flex-wrap gap-3 mt-4">
+                            {{-- Bouton "Emprunter" --}}
+                            <form method="POST" action="{{ route('lecteur.loans.store', $book) }}">
+                                @csrf
+                                <button type="submit"
+                                        class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl
+                                               bg-emerald-600 text-white font-semibold shadow-sm
+                                               hover:bg-emerald-700 active:scale-95 transition-all">
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
                                     </svg>
-                                    Disponible — venez l'emprunter à la bibliothèque
-                                </div>
-                            @endif
+                                    Emprunter ce livre
+                                </button>
+                            </form>
 
-                            @if($canReserve)
-                                @if($hasReservation)
-                                    {{-- Déjà en file --}}
-                                    <a href="{{ route('lecteur.reservations.index') }}"
-                                       class="inline-flex items-center gap-2 px-5 py-3 rounded-xl
-                                              bg-orange-50 border border-orange-200 text-orange-700 font-semibold
-                                              hover:bg-orange-100 transition-colors">
+                            {{-- Bloc Réservation --}}
+                            @if($hasReservation)
+                                {{-- Déjà en file --}}
+                                <a href="{{ route('lecteur.reservations.index') }}"
+                                   class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl
+                                          bg-gray-100 border border-gray-200 text-gray-600 font-semibold
+                                          hover:bg-gray-200 transition-colors">
+                                    Déjà réservé — voir mes réservations
+                                </a>
+                            @else
+                                {{-- Rejoindre la file --}}
+                                <form method="POST" action="{{ route('lecteur.reservations.store', $book) }}">
+                                    @csrf
+                                    <button type="submit"
+                                            class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl
+                                                   bg-orange-500 text-white font-semibold shadow-sm
+                                                   hover:bg-orange-600 active:scale-95 transition-all">
                                         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/>
                                         </svg>
-                                        Déjà en file d'attente — voir mes réservations
-                                    </a>
-                                @else
-                                    {{-- Rejoindre la file — orange avec position estimée --}}
-                                    <form method="POST" action="{{ route('lecteur.reservations.store', $book) }}">
-                                        @csrf
-                                        <button type="submit"
-                                                class="inline-flex items-center gap-2 px-6 py-3 rounded-xl
-                                                       bg-orange-500 text-white font-semibold shadow-sm
-                                                       hover:bg-orange-600 active:scale-95 transition-all">
-                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                                            </svg>
-                                            Rejoindre la file d'attente
-                                            @if($queueCount > 0)
-                                                <span class="ml-1 bg-white/20 px-2 py-0.5 rounded-full text-xs font-bold">
-                                                    position {{ $queueCount + 1 }}
-                                                </span>
-                                            @endif
-                                        </button>
-                                    </form>
-                                @endif
+                                        Réserver
+                                    </button>
+                                </form>
                             @endif
                         </div>
 

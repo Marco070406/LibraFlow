@@ -15,14 +15,12 @@ class ReservationController extends Controller
      */
     public function store(Book $book): RedirectResponse
     {
-        // Si des exemplaires sont disponibles → emprunt direct
-        if ($book->available_copies > 0) {
-            return redirect()
-                ->route('lecteur.books.show', $book)
-                ->with('warning', "Le livre « {$book->title} » est disponible. Vous pouvez le demander directement à la bibliothèque.");
-        }
-
         $userId = auth()->id();
+
+        // 🛑 Bloquer la réservation si le lecteur a des livres en retard
+        if (\App\Models\Loan::where('user_id', $userId)->overdue()->exists()) {
+            return back()->with('error', 'Action bloquée : Vous avez des emprunts en retard. Veuillez restituer vos livres avant de pouvoir réserver de nouveau.');
+        }
 
         // Vérifier si le lecteur a déjà une réservation active sur ce livre
         $existing = Reservation::where('book_id', $book->id)
