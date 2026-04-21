@@ -123,7 +123,7 @@ class LoanController extends Controller
         // Mettre à jour l'emprunt
         $loan->update([
             'returned_at'    => $returnedAt,
-            'penalty_amount' => $penalty > 0 ? $penalty : null,
+            'penalty_amount' => $penalty > 0 ? $penalty : 0,
         ]);
 
         // Réincrémenter le stock
